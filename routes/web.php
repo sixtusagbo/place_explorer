@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::post('/find', function (Request $request) {
+    $values = $request->validate([
+        'address'   => 'required'
+    ]);
+
+    $data = [
+        'place' => $values['address']
+    ];
+
+    return view('place')->with($data);
+})->name('search');
